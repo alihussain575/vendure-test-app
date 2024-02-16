@@ -1,0 +1,88 @@
+<ng-template vdrDialogTitle>
+	<div class="title-row">
+		<span>Select Addon Product</span>
+	</div>
+</ng-template>
+
+<vdr-product-search-input #productSearchInputComponent [facetValueResults]="facetValues$ | async"
+	(searchTermChange)="setSearchTerm($event)" (facetValueChange)="setFacetValueIds($event)"></vdr-product-search-input>
+
+<div class="flex-wrapper">
+	<!-- product list -->
+	<div class="list">
+
+		<div class="card" *ngFor="let item of (items$ | async) || []" (click)="toggleSelection(item, $event)"
+			[ngClass]="{'card-disabled': !isSelectable(item)}">
+
+			<div class="card-img">
+				<img [src]="item.featuredAsset | assetPreview: 'thumb'" />
+			</div>
+			<div class="detail">
+				<span [title]="item.name">
+					{{ item.name}}
+				</span>
+			</div>
+
+
+			<vdr-select-toggle [selected]="isSelected(item)" [disabled]="true" [hiddenWhenOff]="true"></vdr-select-toggle>
+		</div>
+
+	</div>
+
+	<!-- selected product variants -->
+	<div class="selected">
+
+		<div class="selected-items">
+			<div *ngFor="let item of selectionManager.selection" class="flex item-row">
+				<div class="item-img">
+					<img [src]="item.featuredAsset | assetPreview: 'thumb'" />
+				</div>
+				<div class="item-detail">
+					<span [title]="item.name">
+						{{ item.name}}
+					</span>
+
+					<table>
+						<thead>
+							<tr>
+								<th></th>
+								<th style="width: 50%; text-align: left;">Name</th>
+								<th>Is Default</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let option of item.variantList.items">
+								<td>
+									<input type="checkbox" name="productVariants" (change)="onSelectVariant(option, item)"
+										[checked]="isVariantSelected(option)">
+								</td>
+								<td><span>{{ option.name }}</span></td>
+								<td style="width: 100%; display: flex; align-items: center; justify-content: center;">
+									<input type="radio" [name]="'defaultVariantId-' +item.id" [disabled]="!isVariantSelected(option)"
+										(change)="onSelectDefaultVariant(option, item)" [checked]="isDefaultSelected(option, item)">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="paging-controls">
+	<vdr-items-per-page-controls [itemsPerPage]="paginationConfig.itemsPerPage"
+		(itemsPerPageChange)="itemsPerPageChange($event)"></vdr-items-per-page-controls>
+
+	<vdr-pagination-controls [currentPage]="paginationConfig.currentPage" [itemsPerPage]="paginationConfig.itemsPerPage"
+		[totalItems]="paginationConfig.totalItems" (pageChange)="pageChange($event)"></vdr-pagination-controls>
+</div>
+
+
+<ng-template vdrDialogButtons>
+	<button type=" button" class="btn" (click)="cancel()">{{ 'common.cancel' | translate }}</button>
+	<button type="submit" (click)="select()" class="btn btn-primary" [disabled]="selectionManager.selection.length === 0">
+		{{ 'common.select-items-with-count' | translate: { count: selectionManager.selection.length } }}
+	</button>
+</ng-template>

@@ -1,0 +1,210 @@
+<vdr-page-block *ngIf="templateByTypes$ | async as templateByTypes">
+
+	<vdr-card title="Partials">
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['partials'] as templates">
+				<tr class="w-full">
+					<td *ngFor="let template of templates" class="pr-8">
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+						<br>
+						<span>{{ template.description }} </span>
+					</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</vdr-card>
+
+
+	<vdr-card title="Order">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['order'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Shiping/Fulfillment">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['shipping'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Services fulfullment">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['service-fulfillment'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Review">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['review'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Customer">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['customer'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Gift Cards">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['gift-card'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+	<vdr-card title="Email Marketing">
+
+		<table class="custom">
+			<tbody *ngIf="templateByTypes['marketing'] as templates">
+
+				<tr *ngFor="let template of templates">
+					<td>
+						<a [routerLink]="['/extensions', 'email-templates', template.code]">
+							{{ template.name }}
+						</a>
+					</td>
+					<td>
+						<!-- <label></label> -->
+						<clr-toggle-wrapper>
+							<input type="checkbox" clrToggle name="enable" [checked]="template.enabled"
+								(change)="onEnableChange(template)" />
+						</clr-toggle-wrapper>
+					</td>
+					<td>
+						<span>{{ template.description }}</span>
+					</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</vdr-card>
+
+</vdr-page-block>

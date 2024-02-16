@@ -1,0 +1,56 @@
+<vdr-page-header>
+	<vdr-page-title></vdr-page-title>
+</vdr-page-header>
+
+<vdr-page-body>
+
+	<vdr-page-block>
+
+		<vdr-data-table-2 id="messages-list" [items]="items$ | async" [itemsPerPage]="itemsPerPage$ | async"
+			[totalItems]="totalItems$ | async" [currentPage]="currentPage$ | async" (pageChange)="setPageNumber($event)"
+			(itemsPerPageChange)="setItemsPerPage($event)">
+
+			<vdr-dt2-column [heading]="'common.id' | translate " [hiddenByDefault]="true">
+				<ng-template let-item="item">
+					{{ item.id }}
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'Subject' | translate " [hiddenByDefault]="false">
+				<ng-template let-item="item">
+					{{ item.subject }}
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'Order' | translate " [hiddenByDefault]="false">
+				<ng-template let-item="item">
+					<a class="button-ghost" [routerLink]="['/orders', item.order.id]" (click)="markAsRead(item)">
+						{{ item.order.code }}
+						<clr-icon shape="arrow" dir="right"></clr-icon>
+					</a>
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'common.created-at' | translate " [hiddenByDefault]="false">
+				<ng-template let-item="item">
+					{{ item.createdAt | timeAgo }}
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'From' | translate " [hiddenByDefault]="false">
+				<ng-template let-item="item">
+					{{ item.from }}
+				</ng-template>
+			</vdr-dt2-column>
+
+			<!-- <vdr-dt2-column [heading]="'common.created-at' | translate " [hiddenByDefault]="false">
+				<ng-template let-item="item">
+					{{ item.createdAt | timeAgo }}
+				</ng-template>
+			</vdr-dt2-column> -->
+
+
+		</vdr-data-table-2>
+
+	</vdr-page-block>
+</vdr-page-body>

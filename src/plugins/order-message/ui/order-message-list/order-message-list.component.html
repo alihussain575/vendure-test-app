@@ -1,0 +1,85 @@
+<vdr-card class="mb-3" title="Order Messages">
+
+	<div class="flex">
+		<button class="icon-button ml-auto" (click)="refresh()">
+			<clr-icon shape="refresh"></clr-icon>
+		</button>
+		<button class="ml-2 btn primary" (click)="onNew()" [disabled]="(entity$ | async).customer === null">
+			Send Message
+		</button>
+	</div>
+
+
+	<vdr-data-table-2 id="order-messages" [items]="items$ | async" [totalItems]="totalItems$ | async"
+		[itemsPerPage]="itemsPerPage$ | async" [currentPage]="currentPage$ | async" (pageChange)="setPageNumber($event)"
+		(itemsPerPageChange)="setItemsPerPage($event)">
+
+
+		<vdr-bulk-action-menu locationId="order-messages" [hostComponent]="this"
+			[selectionManager]="selectionManager"></vdr-bulk-action-menu>
+
+		<!-- <vdr-dt2-search [searchTermControl]="searchTermControl" searchTermPlaceholder="Filter by Subject"></vdr-dt2-search> -->
+
+
+		<vdr-dt2-column heading="ID" [hiddenByDefault]="true">
+			<ng-template let-item="item">
+				{{ item.id }}
+			</ng-template>
+		</vdr-dt2-column>
+		<vdr-dt2-column heading="Subject" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				<button class="button-ghost" (click)="onView(item)">
+					{{ item.subject }}
+					<clr-icon shape="arrow" dir="right"></clr-icon>
+				</button>
+			</ng-template>
+		</vdr-dt2-column>
+		<vdr-dt2-column heading="Message" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				<div class="flex w-full">
+					<p *ngIf="item.replyTo; else messageContent">
+						{{ item.message | slice:0:50 }}
+					</p>
+					<div *ngIf="!item.replyTo" class="message-content" [innerHTML]="item.message"></div>
+				</div>
+
+			</ng-template>
+		</vdr-dt2-column>
+		<vdr-dt2-column heading="From" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				{{ item.from }}
+			</ng-template>
+		</vdr-dt2-column>
+		<vdr-dt2-column heading="Date Sent" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				{{ item.createdAt | timeAgo }}
+			</ng-template>
+		</vdr-dt2-column>
+
+		<vdr-dt2-column heading="Status" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				<button class="icon-button" [disabled]="item.status !== 1 || item.replyTo === null" (click)="markAsRead(item)">
+					<vdr-chip *ngIf="item.status === 1" [colorType]="'success'">New</vdr-chip>
+					<vdr-chip *ngIf="item.status === 2" colorFrom="#6b728050">Read</vdr-chip>
+				</button>
+				<button class="icon-button" (click)="remove(item)">
+					<clr-icon shape="trash"></clr-icon>
+				</button>
+			</ng-template>
+		</vdr-dt2-column>
+
+		<vdr-dt2-column heading=" Reply To" [hiddenByDefault]="true">
+			<ng-template let-item="item">
+				<span *ngIf="item.replyTo as reply; else noReply">{{ reply.subject }}</span>
+
+
+				<ng-template noReply>
+					-
+				</ng-template>
+			</ng-template>
+
+		</vdr-dt2-column>
+
+	</vdr-data-table-2>
+
+</vdr-card>

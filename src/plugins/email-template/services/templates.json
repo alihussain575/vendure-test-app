@@ -1,0 +1,242 @@
+[
+  {
+    "name": "Order Confirmation",
+    "code": "order-confirmation",
+    "templatePath": "order-confirmation/body.hbs",
+    "subject": "Order Confirmation",
+    "description": "Order Confirmation",
+    "type": "order"
+  },
+  {
+    "name": "Order edited",
+    "code": "order-edited",
+    "templatePath": "order-edited/body.hbs",
+    "subject": "Order edited",
+    "description": "Order edited",
+    "type": "order"
+  },
+  {
+    "name": "Order canceled",
+    "code": "order-canceled",
+    "templatePath": "order-canceled/body.hbs",
+    "subject": "Order canceled",
+    "description": "Order canceled",
+    "type": "order"
+  },
+  {
+    "name": "Order refund",
+    "code": "order-refund",
+    "templatePath": "order-refund/body.hbs",
+    "subject": "Order refund",
+    "description": "Order refund",
+    "type": "order"
+  },
+  {
+    "name": "Order message",
+    "code": "order-message",
+    "templatePath": "order-message/body.hbs",
+    "subject": "Order message",
+    "description": "Order message",
+    "type": "order"
+  },
+  {
+    "name": "Draft order invoice",
+    "code": "order-draft-invoice",
+    "templatePath": "order-draft-invoice/body.hbs",
+    "subject": "Draft order invoice",
+    "description": "Draft order invoice",
+    "type": "order"
+  },
+  {
+    "name": "Abandoned checkout",
+    "code": "abandoned-checkout",
+    "templatePath": "abandoned-checkout/body.hbs",
+    "subject": "Abandoned checkout",
+    "description": "Abandoned checkout",
+    "type": "order"
+  },
+  {
+    "name": "Payment error",
+    "code": "payment-error",
+    "templatePath": "payment-error/body.hbs",
+    "subject": "Payment error",
+    "description": "Payment error",
+    "type": "order"
+  },
+  {
+    "name": "Pending payment error",
+    "code": "pending-payment-error",
+    "templatePath": "pending-payment-error/body.hbs",
+    "subject": "Pending payment error",
+    "description": "Pending payment error",
+    "type": "order"
+  },
+  {
+    "name": "Pending payment success",
+    "code": "pending-payment-success",
+    "templatePath": "pending-payment-success/body.hbs",
+    "subject": "Pending payment success",
+    "description": "Pending payment success",
+    "type": "order"
+  },
+  {
+    "name": "Payment reminder",
+    "code": "payment-reminder",
+    "templatePath": "payment-reminder/body.hbs",
+    "subject": "Payment reminder",
+    "description": "Payment reminder",
+    "type": "order"
+  },
+  {
+    "name": "Subscription",
+    "code": "subcription",
+    "templatePath": "subcription/body.hbs",
+    "subject": "Subscription",
+    "description": "Subscription",
+    "type": "order"
+  },
+  {
+    "name": "Ready for pick up",
+    "code": "ready-for-pickup",
+    "templatePath": "ready-for-pickup/body.hbs",
+    "subject": "Ready for pick up",
+    "description": "Ready for pick up",
+    "type": "shipping"
+  },
+  {
+    "name": "Picked up",
+    "code": "picked-up",
+    "templatePath": "picked-up/body.hbs",
+    "subject": "Picked up",
+    "description": "Picked up",
+    "type": "shipping"
+  },
+  {
+    "name": "Out for delivery",
+    "code": "out-for-delivery",
+    "templatePath": "out-for-delivery/body.hbs",
+    "subject": "Out for delivery",
+    "description": "Out for delivery",
+    "type": "shipping"
+  },
+  {
+    "name": "Delivered",
+    "code": "delivered",
+    "templatePath": "delivered/body.hbs",
+    "subject": "Delivered",
+    "description": "Delivered",
+    "type": "shipping"
+  },
+  {
+    "name": "Shipping confirmation",
+    "code": "shipping-confirmation",
+    "templatePath": "shipping-confirmation/body.hbs",
+    "subject": "Shipping confirmation",
+    "description": "Shipping confirmation",
+    "type": "shipping"
+  },
+  {
+    "name": "Shipping updates",
+    "code": "shipping-updates",
+    "templatePath": "shipping-updates/body.hbs",
+    "subject": "Shipping updates",
+    "description": "Shipping updates",
+    "type": "shipping"
+  },
+  {
+    "name": "Awaiting Broadcasting",
+    "code": "awaiting-broadcasting",
+    "templatePath": "awaiting-boardcast/body.hbs",
+    "subject": "Order status changed to canceled",
+    "description": "Order status changed to canceled",
+    "type": "service-fulfillment"
+  },
+  {
+    "name": "In-process Broadcasting",
+    "code": "in-process-broadcasting",
+    "templatePath": "in-process-broadcasting/body.hbs",
+    "subject": "In-process Broadcasting",
+    "description": "In-process Broadcasting",
+    "type": "service-fulfillment"
+  },
+  {
+    "name": "Finished Broadcasting",
+    "code": "finished-broadcasting",
+    "templatePath": "finished-broadcasting/body.hbs",
+    "subject": "Finished Broadcasting",
+    "description": "Finished Broadcasting",
+    "type": "service-fulfillment"
+  },
+  {
+    "name": "Product review request",
+    "code": "product-review-request",
+    "templatePath": "product-review-request/body.hbs",
+    "subject": "Product review request",
+    "description": "Product review request",
+    "type": "review"
+  },
+  {
+    "name": "Account Created",
+    "code": "account-created",
+    "templatePath": "account-created/body.hbs",
+    "subject": "Account Created",
+    "description": "Account Created",
+    "type": "customer"
+  },
+  {
+    "name": "Password Reset",
+    "code": "password-reset",
+    "templatePath": "password-reset/body.hbs",
+    "subject": "Password Reset",
+    "description": "Password Reset",
+    "type": "customer"
+  },
+  {
+    "name": "Account Settings Edited",
+    "code": "account-settings-edited",
+    "templatePath": "account-settings-edited/body.hbs",
+    "subject": "Account Settings Edited",
+    "description": "Account Settings Edited",
+    "type": "customer"
+  },
+  {
+    "name": "New gift card",
+    "code": "new-gift-card",
+    "templatePath": "new-gift-card/body.hbs",
+    "subject": "New gift card",
+    "description": "New gift card",
+    "type": "gift-card"
+  },
+  {
+    "name": "Gift Certificate Recipient",
+    "code": "gift-certificate-recipient",
+    "templatePath": "gift-certificate-recipient/body.hbs",
+    "subject": "Gift Certificate Recipient",
+    "description": "Gift Certificate Recipient",
+    "type": "gift-card"
+  },
+  {
+    "name": "Customer marketing confirmation",
+    "code": "customer-marketing-confirmation",
+    "templatePath": "customer-marketing-confirmation/body.hbs",
+    "subject": "Customer marketing confirmation",
+    "description": "Customer marketing confirmation",
+    "type": "marketing"
+  },
+  {
+    "name": "Header",
+    "code": "header",
+    "templatePath": "partials/header.hbs",
+    "subject": "Header",
+    "description": "Header shared between all templates",
+    "type": "partials"
+  },
+  {
+    "name": "Footer",
+    "code": "footer",
+    "templatePath": "partials/footer.hbs",
+    "subject": "Footer",
+    "description": "Footer shared between all templates",
+    "type": "partials"
+  }
+]

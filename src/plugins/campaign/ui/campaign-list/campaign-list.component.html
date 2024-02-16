@@ -1,0 +1,54 @@
+<vdr-page-header>
+	<vdr-page-title></vdr-page-title>
+</vdr-page-header>
+
+<vdr-page-body>
+	<vdr-page-block>
+		<vdr-action-bar>
+			<vdr-ab-right>
+				<a class="btn btn-primary" [routerLink]="['./', 'create']">
+					<clr-icon shape="plus"></clr-icon>
+					Create a Campaign
+				</a>
+			</vdr-ab-right>
+		</vdr-action-bar>
+	</vdr-page-block>
+
+	<vdr-data-table-2 id="campaign-list" [items]="items$ | async" [itemsPerPage]="itemsPerPage$ | async"
+		[totalItems]="totalItems$ | async" [currentPage]="currentPage$ | async" [filters]="filters"
+		(pageChange)="setPageNumber($event)" (itemsPerPageChange)="setItemsPerPage($event)">
+
+		<vdr-bulk-action-menu locationId="campaign-list" [hostComponent]="this" [selectionManager]="selectionManager" />
+
+		<vdr-dt2-search [searchTermControl]="searchTermControl" searchTermPlaceholder="Filter by name" />
+
+
+		<vdr-dt2-column [heading]="'Active'" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				<clr-toggle-wrapper>
+					<input type="checkbox" clrToggle name="active" [ngModel]="item.active"
+						(change)="toggleActive(item.id, item.active)" />
+				</clr-toggle-wrapper>
+			</ng-template>
+		</vdr-dt2-column>
+
+		<vdr-dt2-column [heading]="'common.name' | translate" [hiddenByDefault]="false">
+			<ng-template let-item="item">
+				<a class="button-ghost" [routerLink]="['./', item.id]"><span>{{ item.name }}</span>
+					<clr-icon shape="arrow right"></clr-icon>
+				</a>
+			</ng-template>
+		</vdr-dt2-column>
+
+		<vdr-dt2-column [heading]="'common.created-at' | translate" [hiddenByDefault]="true"
+			[sort]="sorts.get('createdAt')">
+			<ng-template let-review="item">
+				{{ review.createdAt | localeDate : 'short' }}
+			</ng-template>
+		</vdr-dt2-column>
+
+
+
+	</vdr-data-table-2>
+
+</vdr-page-body>

@@ -1,0 +1,30 @@
+<vdr-page-block>
+  <h1>Export orders</h1>
+  <form class="form" [formGroup]="form" id="export-form">
+    <section class="form-block">
+      <div class="flex">
+        <div>
+          <label>{{ "Order Placed At: Start" | translate }}</label>
+          <vdr-datetime-picker required timeGranularityInterval="60" formControlName="startsAt"></vdr-datetime-picker>
+        </div>
+        <div>
+          <label>{{ "Order Placed At: End" | translate }}</label>
+          <vdr-datetime-picker required timeGranularityInterval="60" formControlName="endsAt"></vdr-datetime-picker>
+        </div>
+      </div>
+      <br />
+      <clr-select-container>
+        <label>Export as</label>
+        <select clrSelect name="options" formControlName="strategy" required>
+          <option *ngFor="let strategy of strategies" [value]="strategy">
+            {{ strategy }}
+          </option>
+        </select>
+      </clr-select-container>
+      <br />
+      <button class="btn btn-primary" [disabled]="form.invalid || form.pristine" (click)="download()">
+        Export
+      </button>
+    </section>
+  </form>
+</vdr-page-block>

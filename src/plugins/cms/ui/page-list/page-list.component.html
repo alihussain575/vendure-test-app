@@ -1,0 +1,85 @@
+<!-- optional if you want some buttons at the top -->
+<vdr-page-block>
+  <vdr-action-bar>
+    <vdr-ab-left></vdr-ab-left>
+    <vdr-ab-right>
+      <a class="btn btn-primary" [routerLink]="['./', 'create']">
+        <clr-icon shape="plus"></clr-icon>
+        Create a page
+      </a>
+    </vdr-ab-right>
+  </vdr-action-bar>
+</vdr-page-block>
+
+<!-- The data table -->
+<vdr-data-table-2 id="page-list" [items]="items$ | async" [itemsPerPage]="itemsPerPage$ | async"
+  [totalItems]="totalItems$ | async" [currentPage]="currentPage$ | async" [filters]="filters"
+  (pageChange)="setPageNumber($event)" (itemsPerPageChange)="setItemsPerPage($event)">
+  <!-- optional if you want to support bulk actions -->
+  <vdr-bulk-action-menu locationId="page-list" [hostComponent]="this" [selectionManager]="selectionManager" />
+
+  <!-- Adds a search bar -->
+  <vdr-dt2-search [searchTermControl]="searchTermControl" searchTermPlaceholder="Filter by title" />
+
+  <!-- Here we define all the available columns -->
+  <vdr-dt2-column [heading]="'common.id' | translate" [hiddenByDefault]="true">
+    <ng-template let-page="item">
+      {{ page.id }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column [heading]="'common.created-at' | translate" [hiddenByDefault]="true" [sort]="sorts.get('createdAt')">
+    <ng-template let-page="item">
+      {{ page.createdAt | localeDate : 'short' }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column [heading]="'Sort Order' | translate" [hiddenByDefault]="true" [sort]="sorts.get('sort_order')">
+    <ng-template let-page="item">
+      {{ page.sort_order }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Title" [optional]="false">
+    <ng-template let-page="item">
+      <a class="button-ghost" [routerLink]="['./', page.id]"><span>{{ page.title }}</span>
+        <clr-icon shape="arrow right"></clr-icon>
+      </a>
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Slug">
+    <ng-template let-page="item">
+      {{ page.slug }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Status">
+    <ng-template let-page="item">
+      <vdr-chip *ngIf="page.status === 'draft'">Draft</vdr-chip>
+      <vdr-chip *ngIf="page.status === 'published'" colorType="success">Publish</vdr-chip>
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Parent">
+    <ng-template let-page="item">
+      {{ page.parent?.title ?? '-' }}
+    </ng-template>
+  </vdr-dt2-column>
+
+  <vdr-dt2-column heading="Meta Title" [hiddenByDefault]="true">
+    <ng-template let-page="item">
+      {{ page.meta_title }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Meta Keyword" [hiddenByDefault]="true">
+    <ng-template let-page="item">
+      {{ page.meta_keyword }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Show in Nav" [hiddenByDefault]="true">
+    <ng-template let-page="item">
+      {{ page.show_in_nav }}
+    </ng-template>
+  </vdr-dt2-column>
+  <vdr-dt2-column heading="Nav" [hiddenByDefault]="true">
+    <ng-template let-page="item">
+      {{ page.nav }}
+    </ng-template>
+  </vdr-dt2-column>
+
+</vdr-data-table-2>

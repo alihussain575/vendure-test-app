@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+  </style>
+</head>
+
+
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <table class="header row">
+          <tr>
+            <td class="header__cell">
+              <center>
+
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <table class="row">
+                        <tr>
+                          <td class="shop-name__cell">
+
+                          </td>
+
+                          <td>
+                        <tr>
+                          <td class="order-number__cell">
+                            <span class="order-number__text">
+                              Order {{ order.code }}
+                            </span>
+                          </td>
+                        </tr>
+
+
+                  </tr>
+                </table>
+
+            </td>
+          </tr>
+        </table>
+
+        </center>
+      </td>
+    </tr>
+  </table>
+
+
+  <table class="row content">
+    <tr>
+      <td class="content__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+                {{#when payment_schedule.number_of_days_overdue 'eq' 0 }}
+                <h2>Your payment is due today</h2>
+                {{/when}}
+                {{#when payment_schedule.due_in_days 'eq' 0 }}
+                <h2>Your payment is due today</h2>
+                {{/when}}
+                {{#when payment_schedule.number_of_days_overdue 'eq' 1 }}
+                <h2>Your payment was due yesterday</h2>
+                {{/when}}
+                {{#when payment_schedule.due_in_days 'eq' 1 }}
+                <h2>Your payment is due tomorrow</h2>
+                {{/when}}
+                {{#when payment_schedule.due_in_days 'gt' 1 }}
+                <h2>Your payment is due in {{ payment_schedule.due_in_days}} days</h2>
+                {{/when}}
+
+                <h2>Your payment is {{ payment_schedule.number_of_days_overdue }} days overdue</h2>
+
+
+                {{#when custom_message 'noteq' blank }}
+                <p>{{ custom_message }}</p>
+                {{/when }}
+                {{#when payment_schedule.number_of_days_overdue 'eq' 0 }}
+                <p>
+                  This is a reminder that you have a payment of {{ formatMoney payment_schedule.amount_due }}
+                  due today for order {{ name }}.
+
+                </p>
+                {{/when}}
+                {{#if payment_schedule.due_later }}
+                <p>
+                  This is a reminder that your payment of {{ formatMoney payment_schedule.amount_due }} for
+                  order {{ name }} is due on {{ formatDate payment_schedule.due_at }}.
+
+                </p>
+                {{/if }}
+                <p>
+                  This is a reminder that your payment of {{ formatMoney payment_schedule.amount_due }} for
+                  order {{ name }} was due on {{formatDate payment_schedule.due_at }}.
+
+                </p>
+
+                <p>
+                  Thank you.
+                </p>
+
+                {{#if checkout_payment_collection_url }}
+                <table class="row actions">
+                  <tr>
+                    <td class="actions__cell">
+                      <table class="button main-action-cell">
+                        <tr>
+                          <td class="button__cell"><a href="{{ checkout_payment_collection_url }}" </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+
+                {{/if }}
+
+              </td>
+            </tr>
+          </table>
+          center>
+      </td>
+    </tr>
+  </table>
+  <table class="row footer">
+    <tr>
+      <td class="footer__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+                <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a
+                    href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+
+
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+
+  </td>
+  </tr>
+  </table>
+</body>
+
+</html>

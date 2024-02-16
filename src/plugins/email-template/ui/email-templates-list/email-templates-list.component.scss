@@ -1,0 +1,15 @@
+table.custom {
+	td:not(:first-child) {
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+
+	td {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+
+	td > a { 
+		text-decoration: underline;
+	}
+}

@@ -1,0 +1,127 @@
+<vdr-page-header>
+	<vdr-page-title></vdr-page-title>
+</vdr-page-header>
+
+<vdr-page-body>
+	<vdr-page-block>
+		<vdr-action-bar>
+			<vdr-ab-right>
+
+				<button class="button primary" *ngIf="isNew$ | async; else updateButton" (click)="create()"
+					[disabled]="detailForm.pristine || detailForm.invalid">
+					{{ 'common.create' | translate }}
+				</button>
+				<ng-template #updateButton>
+					<button class="btn btn-primary" (click)="update()" [disabled]="detailForm.pristine || detailForm.invalid">
+						{{ 'common.update' | translate }}
+					</button>
+				</ng-template>
+			</vdr-ab-right>
+		</vdr-action-bar>
+
+	</vdr-page-block>
+
+	<form class="form" [formGroup]="detailForm">
+		<vdr-page-detail-layout>
+			<!-- The sidebar is used for displaying "metadata" type information about the entity -->
+			<vdr-page-detail-sidebar>
+				<vdr-card>
+					<label for="active">Active</label>
+					<clr-toggle-wrapper>
+						<input type="checkbox" id="active" clrToggle name="active" formControlName="active" />
+					</clr-toggle-wrapper>
+				</vdr-card>
+
+				<vdr-card *ngIf="entity$ | async as entity">
+					<vdr-page-entity-info [entity]="entity" />
+				</vdr-card>
+
+			</vdr-page-detail-sidebar>
+
+			<!-- The main content area is used for displaying the entity's fields -->
+			<vdr-page-block>
+				<!-- The vdr-card is the container for grouping items together on a page -->
+				<!-- it can also take an optional [title] property to display a title -->
+				<vdr-card>
+					<!-- the form-grid class is used to lay out the form fields -->
+					<div class="form-grid">
+						<vdr-form-field label="Name" for="name">
+							<input id="name" type="text" formControlName="name" required />
+						</vdr-form-field>
+
+						<div></div>
+
+						<!-- etc -->
+						<vdr-form-field label="Header" for="header">
+							<input id="header" type="text" formControlName="header" />
+						</vdr-form-field>
+
+						<vdr-form-field label="Sub Header" for="subHeader">
+							<input id="subHeader" type="text" formControlName="subHeader" />
+						</vdr-form-field>
+
+						<vdr-form-field label="Button Text" for="buttonText">
+							<input id="buttonText" type="text" formControlName="buttonText" />
+						</vdr-form-field>
+
+					</div>
+				</vdr-card>
+
+				<vdr-card>
+					<div style="display: flex; justify-content: space-between; align-items: center;">
+						<h5 style="margin: 0; font-weight: 500;">Product</h5>
+						<button class="button primary" (click)="openProductSelectDialog()" *ngIf="!(selectedProduct$ | async)">
+							Select main Product
+						</button>
+					</div>
+
+					<div class="w-full flex card" *ngIf="selectedProduct$ | async as product">
+
+						<img [src]="product.featuredAsset | assetPreview: 'thumb'" [alt]="product.id" class="item-img">
+
+						<div class="item-detail">
+							<span>
+								{{ product.name }}
+							</span>
+						</div>
+
+						<button class="button primary" (click)="openProductSelectDialog()">
+							Change Product
+						</button>
+					</div>
+
+					<div class="mb-3">
+						<h5 style="margin: 0; font-weight: 500;">Addons</h5>
+
+						<div class="w-full flex card" *ngFor="let addon of (addons$ | async) || []">
+
+							<img [src]="addon.featuredAsset | assetPreview: 'thumb'" [alt]="addon.id" class="item-img">
+
+							<div class="item-detail">
+								<span>
+									{{ addon.name }}
+								</span>
+							</div>
+
+							<div class="flex gap-3">
+								Repetitions:
+								<vdr-chip *ngFor="let variant of addon.variants" [colorType]="isDefault(variant) ? 'success' : ''">
+									<span class="option-name">
+										{{ variant.options[0].name }}
+									</span>
+								</vdr-chip>
+							</div>
+
+						</div>
+					</div>
+
+					<button (click)="openSelectAddonDialog()" *ngIf="selectedProduct$ | async" class=" button">
+						Add addon
+					</button>
+
+				</vdr-card>
+			</vdr-page-block>
+		</vdr-page-detail-layout>
+	</form>
+
+</vdr-page-body>

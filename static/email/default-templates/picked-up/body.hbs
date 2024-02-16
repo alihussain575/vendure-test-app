@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <table class="header row">
+          <tr>
+            <td class="header__cell">
+              <center>
+
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <table class="row">
+                        <tr>
+                          <td class="shop-name__cell">
+
+                          </td>
+
+                          <td>
+                        <tr>
+                          <td class="order-number__cell">
+                            <span class="order-number__text">
+                              Order {{ order.code }}
+                            </span>
+                          </td>
+                        </tr>
+
+                    </td>
+                  </tr>
+                </table>
+
+            </td>
+          </tr>
+        </table>
+
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="row content">
+    <tr>
+      <td class="content__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+
+
+                {{#if shop.url }}
+                <table class="row actions">
+                  <tr>
+                    <td class="actions__cell">
+                      <table class="button main-action-cell">
+                        <tr>
+                          <td class="button__cell"><a href="{{ shop.url }}" class="button__text">Visit our store</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+                {{/if}}
+
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="row section">
+    <tr>
+      <td class="section__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+                <h3>Order summary</h3>
+              </td>
+            </tr>
+          </table>
+          <table class="container">
+            <tr>
+              <td>
+
+
+                <table class="row">
+                  {{#each order.lines }}
+                  <tr class="order-list__item">
+                    <td class="order-list__item__cell">
+                      <table>
+                        <td>
+
+                          <img src="{{ featuredAsset.preview }}" align="left" width="60" height="60"
+                            class="order-list__product-image" />
+
+                        </td>
+                        <td class="order-list__product-description-cell">
+                          <span class="order-list__item-title">{{ productVariant.name }}&nbsp;&times;&nbsp;{{
+                            quantity }}</span><br />
+
+                        </td>
+                        <td class="order-list__price-cell">
+
+                          <p class="order-list__item-price">
+                            {{ formatMoney linePriceWithTax }}
+                          </p>
+                        </td>
+                      </table>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </table>
+
+                <table class="row subtotal-lines">
+                  <tr>
+                    <td class="subtotal-spacer"></td>
+                    <td>
+                      <table class="row subtotal-table">
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Subtotal</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.subTotalWithTax }}</span>
+                          </td>
+                        </tr>
+
+
+                        {{#each order.discounts }}
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span class="subtotal-line__discount">
+                                <img src="{{ 'notifications/discounttag.png' }}" width="18" height="18"
+                                  class="discount-tag-icon" />
+                                <span class="subtotal-line__discount-title">{{ name }} (-{{
+                                  formatMoney totalWithTax }})</span>
+                              </span>
+                            </p>
+                          </td>
+                        </tr>
+                        {{/each}}
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Shipping</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.shippingWithTax }}</span>
+                          </td>
+                        </tr>
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Taxes</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.tax }}</span>
+                          </td>
+                        </tr>
+
+                      </table>
+
+                      <table class="row subtotal-table subtotal-table--total">
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Total</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.totalWithTax }}</span>
+                          </td>
+                        </tr>
+                      </table>
+
+                      {{#when order.totalWithTax 'gt' order.subTotalWithTax}}
+                      <p class="total-discount">
+                        You saved <span class="total-discount--amount">{{ formatMoney order.totalWithTax }}</span>
+                      </p>
+                      {{/when}}
+
+
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+
+
+      </td>
+    </tr>
+  </table>
+  </center>
+  </td>
+  </tr>
+  </table>
+
+  <table class="row footer">
+    <tr>
+      <td class="footer__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+                <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a
+                    href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  </td>
+  </tr>
+  </table>
+</body>
+
+</html>

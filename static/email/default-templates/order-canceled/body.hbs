@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="/assets/notifications/styles.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <table class="body">
+    <tr>
+      <td>
+        <table class="header row">
+          <tr>
+            <td class="header__cell">
+              <center>
+
+                <table class="container">
+                  <tr>
+                    <td>
+
+                      <table class="row">
+                        <tr>
+                          <td class="shop-name__cell">
+
+                          </td>
+
+                          <td>
+                        <tr>
+                          <td class="order-number__cell">
+                            <span class="order-number__text">
+                              Order {{ order.code }}
+                            </span>
+                          </td>
+                        </tr>
+
+                    </td>
+                  </tr>
+                </table>
+
+            </td>
+          </tr>
+        </table>
+
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="row content">
+    <tr>
+      <td class="content__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+
+
+
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="row section">
+    <tr>
+      <td class="section__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+                <h3>Removed Items</h3>
+              </td>
+            </tr>
+          </table>
+          <table class="container">
+            <tr>
+              <td>
+
+
+                <table class="row">
+                  {{#each order.lines }}
+                  <tr class="order-list__item">
+                    <td class="order-list__item__cell">
+                      <table>
+                        <td>
+
+                          <img src="{{ featuredAsset.preview }}" align="left" width="60" height="60"
+                            class="order-list__product-image" />
+
+                        </td>
+                        <td class="order-list__product-description-cell">
+                          <span class="order-list__item-title">{{ productVariant.name }}&nbsp;&times;&nbsp;{{
+                            quantity }}</span><br />
+
+                        </td>
+                        <td class="order-list__price-cell">
+
+                          <p class="order-list__item-price">
+                            {{ formatMoney linePriceWithTax }}
+                          </p>
+                        </td>
+                      </table>
+                    </td>
+                  </tr>
+                  {{/each}}
+                </table>
+
+                <table class="row subtotal-lines">
+                  <tr>
+                    <td class="subtotal-spacer"></td>
+                    <td>
+                      <table class="row subtotal-table">
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Subtotal</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.subTotal }}</span>
+                          </td>
+                        </tr>
+
+                        {{#with order.discounts }}
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Order Discount</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            {{#each this}}
+                            <span>-{{ formatMoney totalWithTax }}</span>
+                            {{/each}}
+                          </td>
+                        </tr>
+                        {{/with}}
+
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Shipping</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.shippingWithTax }}</span>
+                          </td>
+                        </tr>
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Taxes</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ formatMoney order.taxes }}</span>
+                          </td>
+                        </tr>
+
+
+
+                      </table>
+
+
+                      <table class="row subtotal-table">
+                        <tr>
+                          <td colspan="2" class="subtotal-table__line"></td>
+                        </tr>
+                        <tr>
+                          <td colspan="2" class="subtotal-table__small-space"></td>
+                        </tr>
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>{{transaction_name}}</span>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>{{ transaction.amount }}</span>
+                          </td>
+                        </tr>
+
+
+
+                        <tr class="subtotal-line">
+                          <td class="subtotal-line__title">
+                            <p>
+                              <span>Refund</span>
+                              <br>
+                              <small>{{ refund_method_title }}</small>
+                            </p>
+                          </td>
+                          <td class="subtotal-line__value">
+                            <span>- {{ transaction.amount }}</span>
+                          </td>
+                        </tr>
+
+                      </table>
+
+                    </td>
+                  </tr>
+                </table>
+
+
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  <table class="row footer">
+    <tr>
+      <td class="footer__cell">
+        <center>
+          <table class="container">
+            <tr>
+              <td>
+
+                <p class="disclaimer__subtext">If you have any questions, reply to this email or contact us at <a
+                    href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+              </td>
+            </tr>
+          </table>
+        </center>
+      </td>
+    </tr>
+  </table>
+
+  </td>
+  </tr>
+  </table>
+</body>
+
+</html>

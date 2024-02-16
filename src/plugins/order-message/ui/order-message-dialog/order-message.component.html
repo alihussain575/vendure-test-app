@@ -1,0 +1,41 @@
+<ng-template vdrDialogTitle>
+	<div class="title-row">
+		<span>Send Message</span>
+	</div>
+</ng-template>
+
+
+
+<form class="form" [formGroup]="detailForm">
+	<div class="form-grid">
+
+		<vdr-form-field label="To:" for="to" class="form-grid-span">
+			<input id="to" type="text" formControlName="to" readonly />
+		</vdr-form-field>
+
+		<div></div>
+
+		<vdr-form-field label="Subject" for="subject" class="form-grid-span">
+			<input id="subject" type="text" formControlName="subject" required [readonly]="!isNew" />
+		</vdr-form-field>
+
+		<vdr-form-field label="Message" for="message" class="form-grid-span">
+			<vdr-rich-text-editor [(ngModel)]="mess" [ngModelOptions]="{standalone: true}" (ngModelChange)="onMessChange($event)"></vdr-rich-text-editor>
+		</vdr-form-field>
+
+		<!-- <vdr-form-field label="Message" for="message" class="form-grid-span" *ngIf="message !== undefined">
+			<div [innerHTML]="detailForm.get('message')?.value"></div>
+		</vdr-form-field> -->
+
+	</div>
+
+
+
+</form>
+
+<ng-template vdrDialogButtons>
+	<button type=" button" class="btn" (click)="cancel()">{{ 'common.cancel' | translate }}</button>
+	<button type="submit" (click)="send()" class="btn btn-primary" [disabled]="detailForm.pristine || detailForm.invalid">
+		Send Message
+	</button>
+</ng-template>

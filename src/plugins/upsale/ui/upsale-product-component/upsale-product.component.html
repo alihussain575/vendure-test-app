@@ -1,0 +1,119 @@
+<vdr-card [title]="'Addons'" class="mb-3">
+	<!-- <form [formGroup]="detailForm"> -->
+	<div class="">
+		<vdr-product-variant-selector
+			(productSelected)="selectedVariantId$.next($event.productVariantId)"></vdr-product-variant-selector>
+	</div>
+
+	<div class="card-block" *ngIf="selectedVariant$ | async as selectedVariant">
+		<div class="variant-details">
+			<img class="mr-2"
+				[src]="selectedVariant.featuredAsset || selectedVariant.product.featuredAsset | assetPreview: 32">
+			<div class="details">
+				<div>{{ selectedVariant?.name }}</div>
+				<div class="small">{{ selectedVariant?.sku }}</div>
+			</div>
+			<div class="details ml-4">
+				<div class="small">
+					{{ 'catalog.stock-on-hand' | translate }}: {{ selectedVariant.stockOnHand }}
+				</div>
+				<div class="small">
+					{{ 'catalog.stock-allocated' | translate }}: {{ selectedVariant.stockAllocated }}
+				</div>
+			</div>
+			<div class="flex-spacer"></div>
+			<div class="details">
+				<div>{{ selectedVariant?.priceWithTax | localeCurrency: currencyCode }}</div>
+				<div class="small" [title]="'order.net-price' | translate">
+					{{ selectedVariant?.price | localeCurrency: currencyCode }}
+				</div>
+			</div>
+			<!-- <div>
+					<input name="quantity" [disabled]="!selectedVariant" type="number" min="1" defaultValue="1"
+						[(ngModel)]="quantity" />
+				</div> -->
+			<!-- <div class="input-wrapper" [class.focus]="isFocussed" (click)="textArea.focus()">
+				<div class="chips">
+					<vdr-chip *ngFor="let option of options; last as isLast; index as i" [class.selected]="isLast && lastSelected"
+						[colorFrom]="groupName" (iconClick)="removeOption(option)">
+						<span [hidden]="editingIndex !== i">
+							<input #editNameInput type="text" [ngModel]="option" (blur)="updateOption(i, $event)"
+								(click)="$event.cancelBubble = true" />
+						</span>
+						<span class="option-name" [class.editable]="true" (click)="editName(i, $event)"
+							[hidden]="editingIndex === i">{{ option }}</span>
+					</vdr-chip>
+					<textarea #textArea (keyup)="handleKey($event)" (focus)="isFocussed = true" (blur)="handleBlur()"
+						[(ngModel)]="input" [disabled]="disabled"></textarea>
+				</div>
+			</div> -->
+			<button [disabled]="!selectedVariant" class="btn btn-small btn-primary"
+				(click)="addItem(selectedVariant, quantity)">
+				Add product
+			</button>
+		</div>
+
+	</div>
+	<!-- </form> -->
+
+	<div>
+
+		<!-- <div class="bulk-actions">
+			<ng-content select="vdr-bulk-action-menu"></ng-content>
+		</div> -->
+
+
+		<vdr-data-table-2 id="upsale-products" [items]="upsaleProducts$ | async">
+
+
+			<vdr-dt2-column [heading]="'common.id' | translate" [hiddenByDefault]="true">
+				<ng-template let-line="item">
+					{{ line.id }}
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'common.image' | translate" [hiddenByDefault]="false">
+				<ng-template let-line="item">
+					<div class="image-placeholder">
+						<img *ngIf="line.productVariant.featuredAsset as asset; else imagePlaceholder"
+							[src]="asset | assetPreview : 'tiny'" />
+						<ng-template #imagePlaceholder>
+							<div class="placeholder">
+								<clr-icon shape="image" size="48"></clr-icon>
+							</div>
+						</ng-template>
+					</div>
+				</ng-template>
+			</vdr-dt2-column>
+
+			<vdr-dt2-column [heading]="'common.name' | translate" [hiddenByDefault]="false">
+				<ng-template let-line="item">
+
+					{{ line.productVariant.name }}
+
+				</ng-template>
+			</vdr-dt2-column>
+
+			<!-- <vdr-dt2-column [heading]="'Options'" [hiddenByDefault]="false">
+				<ng-template let-line="item">
+
+					<vdr-chip *ngFor="let option of line.options">
+						{{ option }}
+					</vdr-chip>
+
+				</ng-template>
+			</vdr-dt2-column> -->
+
+			<vdr-dt2-column [heading]="''" [hiddenByDefault]="false">
+				<ng-template let-line="item">
+					<button class="btn btn-sm btn-danger" (click)="removeItem(line.id)">
+						<clr-icon shape="trash"></clr-icon>
+					</button>
+				</ng-template>
+			</vdr-dt2-column>
+
+		</vdr-data-table-2>
+
+
+	</div>
+</vdr-card>

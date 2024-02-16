@@ -1,0 +1,142 @@
+<form class="form" [formGroup]="detailForm">
+  <!-- The sidebar is used for displaying "metadata" type information about the entity -->
+  <vdr-page-detail-sidebar>
+    <vdr-card *ngIf="entity$ | async as entity">
+      <vdr-page-entity-info [entity]="entity" />
+    </vdr-card>
+  </vdr-page-detail-sidebar>
+
+  <!-- The main content area is used for displaying the entity's fields -->
+  <!-- The vdr-card is the container for grouping items together on a page -->
+  <!-- it can also take an optional [title] property to display a title -->
+  <vdr-card title="Additional Details">
+    <!-- the form-grid class is used to lay out the form fields -->
+    <div class="form-grid">
+      <vdr-form-field label="Slogan" for="slogan">
+        <input id="slogan" type="text" formControlName="slogan" />
+      </vdr-form-field>
+
+      <vdr-form-field label="Alternate Name" for="alternateName">
+        <input id="alternateName" formControlName="alternateName" />
+      </vdr-form-field>
+
+      <vdr-form-field label="Additional Type" for="additionalType">
+        <input
+          type="text"
+          formControlName="additionalType"
+          id="additionalType"
+        />
+      </vdr-form-field>
+
+      <vdr-form-field
+        label="Disambiguating Description"
+        for="disambiguatingDescription"
+      >
+        <input
+          formControlName="disambiguatingDescription"
+          id="disambiguatingDescription"
+          type="text"
+        />
+      </vdr-form-field>
+      <vdr-form-field
+        label="One Word Name "
+        for="oneWordName "
+        class="form-grid-span"
+      >
+        <input formControlName="oneWordName" id="oneWordName " />
+      </vdr-form-field>
+    </div>
+    <vdr-form-field label="Is Service" for="isService">
+      <clr-toggle-wrapper>
+        <input
+          type="checkbox"
+          clrToggle
+          name="isService"
+          formControlName="isService"
+        />
+      </clr-toggle-wrapper>
+    </vdr-form-field>
+
+    <!-- <vdr-product-variant-selector></vdr-product-selector> -->
+  </vdr-card>
+
+  <vdr-card title="Service" *ngIf="detailForm.get('isService')?.value">
+    <div class="form-grid">
+      <vdr-form-field label="Service Output" for="serviceOutput">
+        <input id="serviceOutput" type="text" formControlName="serviceOutput" />
+      </vdr-form-field>
+
+      <vdr-form-field label="Service Type" for="serviceType">
+        <input id="serviceType" formControlName="serviceType" />
+      </vdr-form-field>
+
+
+      <vdr-form-field label="Duration" for="transmissionDays">
+        <input type="number" formControlName="transmissionDays" id="transmissionDays" />
+      </vdr-form-field>
+
+      <vdr-form-field label="Duration Unit" for="durationUnit">
+        <select id="durationUnit" formControlName="durationUnit">
+          <option value="Days">Days</option>
+          <option value="Weeks">Weeks</option>
+          <option value="Months">Months</option>
+        </select>
+      </vdr-form-field>
+
+      <div class="form-grid-span">
+        <div formArrayName="repetitions">
+          <div
+            *ngFor="
+              let repetitionsGroup of repetitionsFormArray.controls;
+              let idx = index
+            "
+            [formGroupName]="idx"
+            style="margin-bottom: 10px; display: flex; gap: 10px; width: 100%; align-items: end;"
+          >
+            <vdr-form-field label="Repetition" for="repetition">
+              <input type="number" formControlName="repetition" id="repetition  " />
+            </vdr-form-field>
+
+            <button
+              type=" button"
+              class="btn"
+              style="height: 35px"
+              (click)="removeRepetitions(idx)"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <button type=" button" class="btn" (click)="addRepetitions()">
+          Add Repetitions 
+        </button>
+      </div>
+    </div>
+  </vdr-card>
+
+  <vdr-card title="Meta Details for SEO" style="margin-bottom: 20px">
+    <div class="form-grid">
+      <vdr-form-field label="Page Title" for="meta_title">
+        <input id="meta_title" type="text" formControlName="meta_title" />
+      </vdr-form-field>
+
+      <vdr-form-field label="Meta Description" for="meta_description">
+        <input
+          id="meta_description"
+          type="text"
+          formControlName="meta_description"
+        />
+      </vdr-form-field>
+
+      <vdr-form-field label="Keyword" for="meta_keyword" class="form-grid-span">
+        <input id="meta_keyword" formControlName="meta_keyword" class="w-full" />
+      </vdr-form-field>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button class="btn btn-primary" style="display: none;" id="update-details-btn" >Update Details</button>
+    </div>
+
+  </vdr-card>
+</form>

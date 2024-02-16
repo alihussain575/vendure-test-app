@@ -1,0 +1,28 @@
+<vdr-data-table-2 id="order-messages-widget" [items]="(orderMessages$ | async).items">
+
+	<vdr-dt2-column [heading]="'common.created-at' | translate">
+		<ng-template let-message="item">
+			{{ message.createdAt | timeAgo }}
+		</ng-template>
+	</vdr-dt2-column>
+
+	<vdr-dt2-column [heading]="'Subject' | translate">
+		<ng-template let-message="item">
+			<a class="button-ghost" [routerLink]="['/orders', message.order.id]" (click)="markAsRead(message)">{{
+				message.subject }}
+				<clr-icon shape="arrow" dir="right"></clr-icon>
+			</a>
+		</ng-template>
+	</vdr-dt2-column>
+
+	<vdr-dt2-column [heading]="'From' | translate">
+		<ng-template let-message="item">
+			{{ message.from }}
+		</ng-template>
+	</vdr-dt2-column>
+
+</vdr-data-table-2>
+
+<div class="flex" *ngIf="orderMessages$ | async as orderMessages">
+	Total: {{ orderMessages.totalItems }}
+</div>
